@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaperCut Settings Explorer</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        #app {
+            display: flex;
+            width: 100%;
+        }
+        .sidebar {
+            width: 35%;
+            background: #f8f8f8;
+            padding: 15px;
+            overflow-y: auto;
+            border-right: 2px solid #ddd;
+        }
+        .details {
+            flex: 1;
+            padding: 20px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+        .setting-item {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+            transition: background 0.3s;
+        }
+        .setting-item:hover {
+            background: #eaeaea;
+        }
+        .selected {
+            background: #d1e7ff;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .code-box {
+            background: #f4f4f4;
+            padding: 10px;
+            font-family: monospace;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Sidebar (Left) -->
+        <div class="sidebar">
+            <input type="text" v-model="searchQuery" placeholder="Search settings..." class="search-box">
+            <div v-for="setting in filteredSettings" 
+                 :key="setting.key" 
+                 class="setting-item"
+                 :class="{ selected: setting.key === selectedSetting?.key }"
+                 @click="selectSetting(setting)">
+                {{ setting.key }}
+            </div>
+        </div>
+
+        <!-- Details Panel (Right) -->
+        <div class="details" v-if="selectedSetting">
+            <h2>{{ selectedSetting.key }}</h2>
+            <p><strong>Value:</strong> {{ selectedSetting.value }}</p>
+            <p><strong>Description:</strong> {{ selectedSetting.description }}</p>
+            <p><strong>Example:</strong></p>
+            <div class="code-box">{{ selectedSetting.example }}</div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    settings: [],
+                    searchQuery: '',
+                    selectedSetting: null
+                };
+            },
+            computed: {
+                filteredSettings() {
+                    return this.settings.filter(setting => 
+                        setting.key.toLowerCase().includes(this.searchQuery.toLowerCase())
+                    );
+                }
+            },
+            methods: {
+                selectSetting(setting) {
+                    this.selectedSetting = setting;
+                },
+                fetchSettings() {
+                    fetch("papercut_settings.json")
+                        .then(response => response.json())
+                        .then(data => {
+                            this.settings = data;
+                            if (data.length > 0) this.selectedSetting = data[0];
+                        })
+                        .catch(error => console.error("Error loading settings:", error));
+                }
+            },
+            mounted() {
+                this.fetchSettings();
+            }
+        }).mount("#app");
+    </script>
+</body>
+</html>

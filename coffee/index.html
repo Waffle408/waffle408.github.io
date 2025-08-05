@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CoffeeGame Static Demo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fefae0;
+      display: flex;
+      height: 100vh;
+    }
+    #sidebar {
+      width: 30%;
+      padding: 1rem;
+      overflow-y: auto;
+      background: #fffbe6;
+      border-right: 2px solid #ddd;
+    }
+    #main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #fefae0;
+    }
+    canvas {
+      width: 400px;
+      height: 400px;
+    }
+    #pointer {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 30px solid #333;
+      z-index: 10;
+    }
+    #winnerModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+    }
+    #modalContent {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 90%;
+    }
+    table {
+      margin-top: 1rem;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      background: #d4a373;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <h2>CoffeeGame (Demo)</h2>
+    <p>Participants:</p>
+    <ul id="participantsList"></ul>
+    <button id="spinButton">Spin the Wheel</button>
+  </div>
+
+  <div id="main">
+    <div id="pointer"></div>
+    <canvas id="wheel" width="400" height="400"></canvas>
+  </div>
+
+  <div id="winnerModal">
+    <div id="modalContent">
+      <h2>🎉 Coffee King</h2>
+      <p id="winnerName"></p>
+      <h3>Orders</h3>
+      <table id="breakdownTable">
+        <tr><th>Name</th><th>Order</th></tr>
+      </table>
+      <button id="closeModal">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const participants = [
+      { name: "Chris", order: "Latte, 1 tsp, Oat Milk" },
+      { name: "Sarah", order: "Flat White, No Sugar, Skim Milk" },
+      { name: "Tom", order: "Espresso, No Sugar, No Milk" },
+      { name: "Jane", order: "Cappuccino, 2 tsp, Whole Milk" }
+    ];
+
+    const canvas = document.getElementById('wheel');
+    const ctx = canvas.getContext('2d');
+    const center = canvas.width / 2;
+    let spinAngle = 0;
+
+    function drawWheel() {
+      const step = 2 * Math.PI / participants.length;
+      participants.forEach((p, i) => {
+        const start = i * step;
+        const end = start + step;
+
+        ctx.beginPath();
+        ctx.moveTo(center, center);
+        ctx.arc(center, center, center - 10, start, end);
+        ctx.fillStyle = `hsl(${i * 360 / participants.length}, 70%, 70%)`;
+        ctx.fill();
+        ctx.save();
+        ctx.translate(center, center);
+        ctx.rotate((start + end) / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#000";
+        ctx.fillText(p.name, center - 20, 10);
+        ctx.restore();
+      });
+    }
+
+    function spinWheel() {
+      const winnerIndex = Math.floor(Math.random() * participants.length);
+      const anglePerSegment = 360 / participants.length;
+      const randomExtra = Math.random() * anglePerSegment;
+      const finalAngle = 360 * 5 + (winnerIndex * anglePerSegment) + (anglePerSegment / 2) + randomExtra;
+
+      canvas.style.transition = 'transform 4s ease-out';
+      canvas.style.transform = `rotate(${finalAngle}deg)`;
+
+      setTimeout(() => {
+        showWinner(winnerIndex);
+      }, 3000);
+    }
+
+    function showWinner(index) {
+      document.getElementById('winnerName').textContent = participants[index].name;
+      const tbl = document.getElementById('breakdownTable');
+      tbl.innerHTML = '<tr><th>Name</th><th>Order</th></tr>';
+      participants.forEach(p => {
+        const row = tbl.insertRow();
+        row.insertCell().textContent = p.name;
+        row.insertCell().textContent = p.order;
+      });
+      document.getElementById('winnerModal').style.display = 'flex';
+    }
+
+    document.getElementById('spinButton').onclick = spinWheel;
+    document.getElementById('closeModal').onclick = () => {
+      document.getElementById('winnerModal').style.display = 'none';
+    };
+
+    participants.forEach(p => {
+      const li = document.createElement('li');
+      li.textContent = p.name;
+      document.getElementById('participantsList').appendChild(li);
+    });
+
+    drawWheel();
+  </script>
+</body>
+</html>

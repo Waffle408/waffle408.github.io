@@ -1,0 +1,290 @@
+[
+    {
+        "key": "ext-device.card-no-converter",
+        "value": "GLOBAL",
+        "description": "Determines how card numbers are processed.",
+        "example": "EXT-DEVICE-CARD-NO-CONVERTER=NEW"
+    },
+    {
+        "key": "ext-device.card-no-regex",
+        "value": "GLOBAL",
+        "description": "Regular expression for processing card numbers.",
+        "example": "EXT-DEVICE-CARD-NO-REGEX=^[0-9]{8,12}$"
+    },
+    {
+        "key": "ext-device.card-self-association.use-secondary-card-number",
+        "value": "GLOBAL",
+        "description": "Enables self-association of secondary card numbers.",
+        "example": "EXT-DEVICE-CARD-SELF-ASSOCIATION-USE-SECONDARY-CARD-NUMBER=Y"
+    },
+    {
+        "key": "ext-device.inactivity-timeout-secs",
+        "value": "20",
+        "description": "Sets the inactivity timeout in seconds before logout.",
+        "example": "EXT-DEVICE-INACTIVITY-TIMEOUT-SECS=30"
+    },
+    {
+        "key": "ext-device.integration.enabled",
+        "value": "Y",
+        "description": "Enables external device integration with PaperCut.",
+        "example": "EXT-DEVICE-INTEGRATION-ENABLED=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.accounts.initial-tab",
+        "value": "DEFAULT",
+        "description": "Sets the initial tab to be displayed on the Konica Minolta device interface.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-ACCOUNTS-INITIAL-TAB=PRINT"
+    },
+    {
+        "key": "ext-device.konica-minolta.allow-third-party-pullprint-apps",
+        "value": "DEFAULT",
+        "description": "Allows third-party pull-print applications to run on the device.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-ALLOW-THIRD-PARTY-PULLPRINT-APPS=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.allow-third-party-scan-apps",
+        "value": "DEFAULT",
+        "description": "Enables third-party scanning applications to integrate with the device.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-ALLOW-THIRD-PARTY-SCAN-APPS=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.app-button.title",
+        "value": "DEFAULT",
+        "description": "Sets the title of the PaperCut app button on Konica Minolta devices.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-APP-BUTTON-TITLE='Print Release'"
+    },
+    {
+        "key": "ext-device.konica-minolta.app-release.title",
+        "value": "DEFAULT",
+        "description": "Sets the title of the print release button.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-APP-RELEASE-TITLE='Secure Print'"
+    },
+    {
+        "key": "ext-device.konica-minolta.app-scan.title",
+        "value": "DEFAULT",
+        "description": "Sets the title of the scan button on Konica Minolta devices.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-APP-SCAN-TITLE='Scan to Email'"
+    },
+    {
+        "key": "ext-device.konica-minolta.appno.auto-overwrite",
+        "value": "DEFAULT",
+        "description": "Enables auto-overwrite for the app number settings.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-APPNO-AUTO-OVERWRITE=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.appno.auto-registering",
+        "value": "DEFAULT",
+        "description": "Allows automatic registration of the app number on Konica Minolta devices.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-APPNO-AUTO-REGISTERING=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.auth.public-setting",
+        "value": "DEFAULT",
+        "description": "Defines public authentication settings for Konica Minolta devices.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-AUTH-PUBLIC-SETTING=DISABLED"
+    },
+    {
+        "key": "ext-device.konica-minolta.auth.screen.title",
+        "value": "DEFAULT",
+        "description": "Sets the title of the authentication screen.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-AUTH-SCREEN-TITLE='User Login'"
+    },
+    {
+        "key": "ext-device.konica-minolta.avoid-additional-media-info",
+        "value": "N",
+        "description": "Determines if additional media information is avoided.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-AVOID-ADDITIONAL-MEDIA-INFO=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.connection-timeout.secs",
+        "value": "60",
+        "description": "Defines the timeout for the device browser connection.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-CONNECTION-TIMEOUT-SECS=90"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.custom-logo-filename",
+        "value": "logo.png",
+        "description": "Defines the custom logo filename used in the browser UI.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-CUSTOM-LOGO-FILENAME='company-logo.png'"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.device-function-button.title",
+        "value": "DEFAULT",
+        "description": "Sets the title for the device function button.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-DEVICE-FUNCTION-BUTTON-TITLE='Functions'"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.enable-fast-login-flow",
+        "value": "DEFAULT",
+        "description": "Enables fast login flow for quicker access.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-ENABLE-FAST-LOGIN-FLOW=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.enabled",
+        "value": "Y",
+        "description": "Enables the embedded browser for PaperCut on Konica Minolta devices.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-ENABLED=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.header-color",
+        "value": "DEFAULT",
+        "description": "Sets the color of the browser header.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-HEADER-COLOR='#FFFFFF'"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.header-image-color",
+        "value": "DEFAULT",
+        "description": "Defines the color scheme for the browser header image.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-HEADER-IMAGE-COLOR='#333333'"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.header-text-color",
+        "value": "DEFAULT",
+        "description": "Sets the color of the text in the browser header.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-HEADER-TEXT-COLOR='#000000'"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.scanning-compact-pdf",
+        "value": "DEFAULT",
+        "description": "Enables or disables compact PDF scanning.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-SCANNING-COMPACT-PDF=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.scanning-merge-pdf",
+        "value": "DEFAULT",
+        "description": "Enables merging multiple scans into a single PDF.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-SCANNING-MERGE-PDF=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.scanning-merge-tiff",
+        "value": "DEFAULT",
+        "description": "Enables merging multiple scans into a single TIFF file.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-SCANNING-MERGE-TIFF=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.screen-height",
+        "value": "0",
+        "description": "Defines the height of the device screen interface.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-SCREEN-HEIGHT=1024"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.screen-width",
+        "value": "0",
+        "description": "Defines the width of the device screen interface.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-SCREEN-WIDTH=768"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.show-back-button",
+        "value": "Y",
+        "description": "Determines if the back button should be displayed.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-SHOW-BACK-BUTTON=N"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.show-hostname",
+        "value": "N",
+        "description": "Defines whether the hostname should be displayed.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-SHOW-HOSTNAME=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.show-logout-button",
+        "value": "Y",
+        "description": "Determines if the logout button is visible on the interface.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-SHOW-LOGOUT-BUTTON=N"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.show-sha1-message",
+        "value": "DEFAULT",
+        "description": "Controls SHA-1 security messages visibility.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-SHOW-SHA1-MESSAGE=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.show-status-bar",
+        "value": "N",
+        "description": "Enables or disables the display of the status bar.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-SHOW-STATUS-BAR=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.browser.suppress-home-screen",
+        "value": "DEFAULT",
+        "description": "Determines if the home screen should be suppressed.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-BROWSER-SUPPRESS-HOME-SCREEN=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.card-decode-scheme",
+        "value": "DEFAULT",
+        "description": "Specifies the decoding scheme for card readers.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-CARD-DECODE-SCHEME=HID"
+    },
+    {
+        "key": "ext-device.konica-minolta.card-decoder-force-mode",
+        "value": "DEFAULT",
+        "description": "Forces the card decoder to operate in a specific mode.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-CARD-DECODER-FORCE-MODE=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.card-decoder-hid",
+        "value": "0",
+        "description": "Enables HID mode for card decoding.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-CARD-DECODER-HID=1"
+    },
+    {
+        "key": "ext-device.konica-minolta.compatibility-mode",
+        "value": "N",
+        "description": "Enables compatibility mode for older devices.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-COMPATIBILITY-MODE=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.custom-my-panel",
+        "value": "DEFAULT",
+        "description": "Defines custom panel settings for Konica Minolta devices.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-CUSTOM-MY-PANEL=ENABLED"
+    },
+    {
+        "key": "ext-device.konica-minolta.delete-job-on-insufficient-credit",
+        "value": "DEFAULT",
+        "description": "Determines if print jobs should be deleted when credit is insufficient.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-DELETE-JOB-ON-INSUFFICIENT-CREDIT=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.delete-session.batch-size",
+        "value": "DEFAULT",
+        "description": "Defines the batch size for session deletions.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-DELETE-SESSION-BATCH-SIZE=10"
+    },
+    {
+        "key": "ext-device.konica-minolta.device-config-state",
+        "value": "9f26f591c03ad18f7a9e7aedf8d49c7ab0113d8313999f079f94416f57ac50ff",
+        "description": "Stores the device configuration state hash.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-DEVICE-CONFIG-STATE='hash12345'"
+    },
+    {
+        "key": "ext-device.konica-minolta.device-type-a4",
+        "value": "DEFAULT",
+        "description": "Indicates whether the device is an A4 type.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-DEVICE-TYPE-A4=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.display-balance",
+        "value": "DEFAULT",
+        "description": "Controls whether the user's balance is displayed.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-DISPLAY-BALANCE=Y"
+    },
+    {
+        "key": "ext-device.konica-minolta.elastic-balance",
+        "value": "DEFAULT",
+        "description": "Enables elastic balance display for print accounting.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-ELASTIC-BALANCE=N"
+    },
+    {
+        "key": "ext-device.konica-minolta.email.personalized-sender",
+        "value": "Y",
+        "description": "Allows personalized sender email addresses for scan-to-email.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-EMAIL-PERSONALIZED-SENDER=N"
+    },
+    {
+        "key": "ext-device.konica-minolta.enable.screen-logout-button",
+        "value": "DEFAULT",
+        "description": "Determines if the screen logout button should be displayed.",
+        "example": "EXT-DEVICE-KONICA-MINOLTA-ENABLE-SCREEN-LOGOUT-BUTTON=Y"
+    }
+]
