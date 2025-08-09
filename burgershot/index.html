@@ -1,0 +1,423 @@
+<script src="vue.min.js"></script>
+    
+    <div id="app">
+      <header class="burger-header">
+        <div class="logo">
+          <img src="https://stagnes.ldas.dev/burgershot/assets/Burgershot_Logo.png" alt="BurgerShot" />
+        </div>
+        <nav class="nav-links">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Menu</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#" @click="openOrderModal">Place Order</a></li>
+          </ul>
+        </nav>
+      </header>
+  
+      <main>
+        <section class="hero">
+          <h1>Welcome to BurgerShot</h1>
+          <p>Best burgers in the city, served fast and fresh!</p>
+        </section>
+  
+        <section class="menu">
+          <h2>Our Menu</h2>
+          <div class="menu-items">
+            <div class="menu-item" v-for="item in menuItems" :key="item.id">
+                <img :src="item.image" alt="menu item" />
+                <div class="item-info">
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.description }}</p>
+                    <p class="price">{{ item.price }}</p>
+                    <button @click="addToCart(item)">Add to Cart</button>
+                </div>
+            </div>
+          </div>
+        </section>
+      </main>
+  
+      <footer>
+        <div class="footer-content">
+          <p>© 2025 BurgerShot. All rights reserved.</p>
+          <p>Follow us on <a href="#">Twitter</a>, <a href="#">Instagram</a></p>
+        </div>
+      </footer>
+       <!-- Modal for Order -->
+    <div v-if="showModal" class="modal">
+        <div class="modal-content">
+            <h2>Place Your Order</h2>
+            <p>Please enter your name to complete your order:</p>
+            <input type="text" v-model="customerName" placeholder="Your name" />
+            <button @click="placeOrder">Place Order</button>
+            <button @click="closeModal">Cancel</button>
+        </div>
+    </div>
+    </div>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                menuItems: 
+                [
+    { 
+        id: 1, 
+        name: "Big Boi Burger", 
+        description: "Delicious burger with extra toppings", 
+        price: "$9.99", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/bigboi.png" 
+    },
+    { 
+        id: 2, 
+        name: "Bleeder Burger", 
+        description: "A messy, juicy burger, perfect for thrill-seekers", 
+        price: "$10.99", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/bleederburger.png" 
+    },
+    { 
+        id: 3, 
+        name: "BLT Burger", 
+        description: "Classic BLT burger with crispy bacon", 
+        price: "$8.99", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/bltburger.png" 
+    },
+    { 
+        id: 4, 
+        name: "BLT Sub", 
+        description: "A twist on the classic BLT in a sub roll", 
+        price: "$7.49", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/bltsub.png" 
+    },
+    { 
+        id: 5, 
+        name: "Cheese & Bacon Burger", 
+        description: "Tasty cheese and bacon in one burger", 
+        price: "$8.99", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/cheese&baconburger.png" 
+    },
+    { 
+        id: 6, 
+        name: "Chicken Wrap", 
+        description: "A wrap filled with grilled chicken and fresh veggies", 
+        price: "$7.99", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/chickenwrap.png" 
+    },
+    { 
+        id: 7, 
+        name: "Coffee", 
+        description: "Fresh brewed coffee for that morning pick-me-up", 
+        price: "$2.50", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/coffee.png" 
+    },
+    { 
+        id: 8, 
+        name: "Fries", 
+        description: "Crispy, golden fries", 
+        price: "$3.00", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/fries.png" 
+    },
+    { 
+        id: 9, 
+        name: "Frozen Nuggets", 
+        description: "Frozen and deep-fried chicken nuggets", 
+        price: "$5.00", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/frozennugget.png" 
+    },
+    { 
+        id: 10, 
+        name: "Heart Stopper Burger", 
+        description: "A burger with all the extreme ingredients", 
+        price: "$12.99", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/heartstopperburger.png" 
+    },
+    { 
+        id: 11, 
+        name: "Lettuce", 
+        description: "Fresh leafy lettuce for toppings", 
+        price: "$1.00", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/lettuce.png" 
+    },
+    { 
+        id: 12, 
+        name: "Lettuce Seed", 
+        description: "Lettuce seeds for planting", 
+        price: "$2.00", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/lettuceseed.png" 
+    },
+    { 
+        id: 13, 
+        name: "Mega Burger", 
+        description: "A gigantic burger for the ultimate appetite", 
+        price: "$15.00", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/megaburger.png" 
+    },
+    { 
+        id: 14, 
+        name: "Money Shot Burger", 
+        description: "The most expensive and satisfying burger", 
+        price: "$14.99", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/moneyshotburger.png" 
+    },
+    { 
+        id: 15, 
+        name: "Onion Rings", 
+        description: "Crispy battered onion rings", 
+        price: "$4.00", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/onionrings.png" 
+    },
+    { 
+        id: 16, 
+        name: "Potato", 
+        description: "Fresh, large potatoes", 
+        price: "$1.50", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/potato.png" 
+    },
+    { 
+        id: 17, 
+        name: "Raw Patty", 
+        description: "Raw beef patty ready for cooking", 
+        price: "$3.50", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/rawpatty.png" 
+    },
+    { 
+        id: 18, 
+        name: "Soft Drink", 
+        description: "Your favorite fizzy drinks", 
+        price: "$2.00", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/softdrink.png" 
+    },
+    { 
+        id: 19, 
+        name: "Tomato", 
+        description: "Fresh tomatoes for that classic burger taste", 
+        price: "$1.00", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/tomato.png" 
+    },
+    { 
+        id: 20, 
+        name: "Triple Beef Burger", 
+        description: "A huge triple patty burger for the meat lovers", 
+        price: "$14.99", 
+        image: "https://stagnes.ldas.dev/burgershot/assets/burgershot/triplebeefburger.png" 
+    },
+
+
+                ],
+                cart: [],
+            showModal: false,
+            customerName: ""
+            };
+            
+        },
+        methods: {
+         // Add item to cart
+         addToCart(item) {
+            this.cart.push(item);
+            alert(`${item.name} added to your cart!`);
+        },
+
+        // Open the modal to place the order
+        openOrderModal() {
+            if (this.cart.length === 0) {
+                alert("Please add items to your cart before placing an order.");
+                return;
+            }
+            this.showModal = true;
+        },
+
+        // Close the modal
+        closeModal() {
+            this.showModal = false;
+        },
+
+        // Place the order
+        placeOrder() {
+            if (!this.customerName) {
+                alert("Please enter your name.");
+                return;
+            }
+
+            const orderDetails = {
+                customer_name: this.customerName,
+                items: this.cart.map(item => item.name),
+            };
+
+            // Send the order to backend (this can be the same API used for Discord webhook)
+            this.sendOrderToBackend(orderDetails);
+
+            // Close the modal and reset the cart
+            this.showModal = false;
+            this.cart = [];
+            this.customerName = ""; // Clear name
+            alert("Order placed successfully!");
+        },
+
+        // Send order details to backend
+        sendOrderToBackend(orderDetails) {
+            const apiUrl = "api.php"; // Replace with actual backend URL
+
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderDetails)
+            })
+            .then(response => response.json())
+            .then(data => console.log('Order sent:', data))
+            .catch(error => console.error('Error sending order:', error));
+        }
+    
+    }
+    });
+</script>
+  
+  <style scoped>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #2d2d2d;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .burger-header {
+    background-color: #ffdd00;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .burger-header .logo img {
+    width: 150px;
+  }
+  
+  .nav-links ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .hero {
+    background-color: #c73c3c;
+    color: #fff;
+    padding: 60px 0;
+    text-align: center;
+  }
+  
+  .hero h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+  /* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+}
+
+.modal input {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.modal button {
+    background-color: #ffdd00;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal button:hover {
+    background-color: #e6c200;
+}
+
+  .hero p {
+    font-size: 24px;
+  }
+  
+  .menu {
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .menu h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .menu-items {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .menu-item {
+    background-color: #333;
+    border-radius: 10px;
+    width: 250px;
+    margin: 10px;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .menu-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .item-info {
+    padding: 20px;
+  }
+  
+  .item-info h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .price {
+    font-size: 20px;
+    color: #ffdd00;
+  }
+  
+  footer {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  footer a {
+    color: #ffdd00;
+    text-decoration: none;
+  }
+  </style>
+  
