@@ -1,0 +1,109 @@
+/* Light Mode Styles */
+html.light-mode {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --button-bg: #007aff;
+    --button-hover-bg: #e0e0e0;
+}
+
+/* Dark Mode Styles (default) */
+html {
+    --background-color: #35383f;
+    --text-color: #ffffff;
+    --button-bg: #ff9900;
+    --button-hover-bg: #005bb5;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: var(--button-bg);
+    color: var(--background-color);
+    padding: 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: var(--background-color);
+    text-decoration: none;
+}
+
+section {
+    padding: 20px;
+}
+
+.btn {
+    background-color: var(--button-bg);
+    color: var(--background-color);
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: var(--button-hover-bg);
+}
+
+footer {
+    background-color: var(--button-bg);
+    color: var(--background-color);
+    text-align: center;
+    padding: 10px;
+}
+
+/* New styles for the module */
+.module {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--button-bg);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.module h3 {
+    color: var(--button-bg);
+}
+
+.module img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 15px;
+}
+
+.module pre {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: "Courier New", Courier, monospace;
+}
+
+.module .code-block {
+    background-color: #282828;
+    color: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.module .code-block code {
+    display: block;
+    font-size: 1.2em;
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STATS Reporting — Automatic Emails</title>
+  <style>
+:root{
+  --bg:#0b0f14; --panel:#0f1620; --text:#e5e7eb; --muted:#94a3b8; --accent:#f59e0b; --border:#1f2937; --link:#3b82f6;
+}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:1100px;margin:36px auto;padding:0 16px}
+.h1{font-size:clamp(24px,3vw,34px);font-weight:800;margin:0 0 8px}
+.lead{color:var(--muted);line-height:1.5}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.col-6{grid-column:span 6} .col-12{grid-column:1/-1}
+@media (max-width:900px){.col-6{grid-column:1/-1}}
+.imgcard{background:#0b1220;border:1px solid var(--border);border-radius:12px;padding:10px}
+.imgcard img{width:100%;height:auto;border-radius:8px;display:block}
+.code{background:#0b1220;border:1px solid var(--border);border-radius:12px;padding:14px;overflow:auto}
+pre{margin:0;white-space:pre}
+.btn{background:var(--accent);color:#0b0f14;border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.badge{display:inline-block;background:#384253;border:1px solid #4b5563;border-radius:14px;padding:4px 8px;font-size:12px;color:#cbd5e1}
+ul.facts{margin:8px 0 0 18px; padding:0}
+ul.facts li{margin:6px 0; color:var(--text)}
+.small{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel">
+      <div class="h1">Automatic Emails</div>
+      <p class="lead">
+        STATS sends scheduled emails and alerts related to reporting and overdue devices. 
+        Use the controls below to explore examples. This page links back to the main Reports module.
+      </p>
+      <a class="btn" href="reportsmodule.html">← Back to Reporting</a>
+    </div>
+
+    <div class="panel">
+      <div class="h1" style="font-size:22px">What gets emailed?</div>
+      <ul class="facts">
+        <li><strong>Weekly Year-Level Reports:</strong> PDF + CSV attachments with internal links for VPN users.</li>
+        <li><strong>Overdue Alerts:</strong> 2‑day reminder to follow up with the student/device holder.</li>
+        <li><strong>Lock Notices:</strong> 4‑day escalation advising the device will be locked until returned.</li>
+        <li><strong>Subscriptions:</strong> Managed per year level in the <em>Report Emails</em> list—unsubscribe without deleting.</li>
+        <li>Every email includes a unique unsubscribe link. Delivery uses a queue with retry/backoff.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <div class="grid">
+        <div class="col-6">
+          <div class="imgcard">
+            <img alt="Weekly report email example" src="reports1.png" />
+          </div>
+          <p class="small">Weekly report email showing attachments and internal links.</p>
+        </div>
+        <div class="col-6">
+          <div class="imgcard">
+            <img alt="Report emails subscription list UI" src="reports2.png" />
+          </div>
+          <p class="small">Admin list of recipients per year level with quick Unsubscribe/Delete actions.</p>
+        </div>
+        <div class="col-6">
+          <div class="imgcard">
+            <img alt="Overdue device alert email (2-day)" src="email1.png" />
+          </div>
+          <p class="small">Overdue alert after 2 days—gentle reminder to follow up.</p>
+        </div>
+        <div class="col-6">
+          <div class="imgcard">
+            <img alt="Lock device escalation email (4-day)" src="email2.png" />
+          </div>
+          <p class="small">Lock escalation at day 4—advises the device will be locked.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="h1" style="font-size:22px">Scheduling & Queue (pseudocode)</div>
+      <div class="code"><pre><code>// Nightly job
+async function processEmailJobs(dateRange) {
+  const years = [7,8,9,10,11,12];
+  for (const y of years) {
+    const files = await renderWeeklyFiles({ year_level: y, ...dateRange }); // -> { pdf, csv }
+    const recipients = await listRecipients(y); // report_emails where subscribed=1
+    for (const to of recipients) {
+      await queue({ to, kind: 'weekly', files, dateRange });
+    }
+  }
+  // Overdue + lock alerts
+  const overdue = await findOverdue(2); // 2 days
+  const locks   = await findOverdue(4); // 4 days
+  for (const r of overdue) await queue({ to: r.notify, kind: 'overdue', data: r });
+  for (const r of locks)   await queue({ to: r.notify, kind: 'lock',    data: r });
+}</code></pre></div>
+      <a class="btn" href="index.html">← Back to Reporting</a>
+    </div>
+  </div>
+</body>
+</html>

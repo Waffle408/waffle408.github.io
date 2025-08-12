@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STATS Reporting Module</title>
+  <style>
+:root{
+  --bg:#0b0f14; --panel:#0f1620; --text:#e5e7eb; --muted:#94a3b8; --accent:#f59e0b; --border:#1f2937; --link:#3b82f6;
+}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:1100px;margin:36px auto;padding:0 16px}
+.h1{font-size:clamp(24px,3vw,34px);font-weight:800;margin:0 0 8px}
+.lead{color:var(--muted);line-height:1.5}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.col-7{grid-column:span 7} .col-5{grid-column:span 5} .col-12{grid-column:1/-1}
+@media (max-width:900px){.col-7,.col-5{grid-column:1/-1}}
+.imgcard{background:#0b1220;border:1px solid var(--border);border-radius:12px;padding:10px}
+.imgcard img{width:100%;height:auto;border-radius:8px;display:block}
+.code{background:#0b1220;border:1px solid var(--border);border-radius:12px;padding:14px;overflow:auto}
+pre{margin:0;white-space:pre}
+.btn{background:var(--accent);color:#0b0f14;border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.small{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel">
+      <div class="h1">Reports Module</div>
+      <p class="lead">
+        Generate weekly or ad‑hoc summaries covering borrow activity, outstanding slips, current assignments, and late returns.
+        Below is a preview image of a generated PDF report (first pages), plus an embedded viewer if you prefer to scroll the PDF.
+      </p>
+    </div>
+
+    <div class="panel">
+      <div class="grid">
+        <div class="col-7">
+          <div class="imgcard">
+            <img alt="Report preview" src="reports1.png" />
+            <img alt="Report preview" src="reports2.png" />
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="code"><pre><code>// PSEUDOCODE — how a weekly report is generated (frontend-friendly)
+
+async function runWeeklyReport(filters) {
+  // 1) Fetch data slices used in the PDF
+  const summary   = await fetchJson('/api/reports/summary', filters);
+  const slipsIn   = await fetchJson('/api/reports/slips?status=validated', filters);
+  const slipsOut  = await fetchJson('/api/reports/slips?status=pending', filters);
+  const assigned  = await fetchJson('/api/reports/assignments?open=true', filters);
+  const history   = await fetchJson('/api/reports/history', filters);
+
+  // 2) Build a single payload (server can render PDF via TCPDF)
+  const payload = { summary, slipsIn, slipsOut, assigned, history, filters };
+
+  // 3) Ask server to render and store PDF + CSV
+  const res = await fetch('/api/reports/render', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  return await res.json(); // => {{ filenamePdf, filenameCsv, id }}
+}
+
+function fetchJson(url, q) {
+  const full = url + '&' + new URLSearchParams(q ?? {}).toString();
+  return fetch(full).then(r => r.json());
+}</code></pre></div>
+          <p class="small" style="margin-top:10px">Tip: store generated files in <code>reports</code> table with <code>generated_by</code> and <code>filters_used</code> for audit.</p>
+          <p><a class="btn" href="report_YR-1754994517.pdf" target="_blank" rel="noopener">Open PDF</a></p>
+        <p><a class="btn" href="auto_emails.html" target="_blank" rel="noopener">More about Automatic Emails</a></p>
+       
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div style="aspect-ratio: 16/9; width: 100%;">
+        <object data="report_YR-1754994517.pdf" type="application/pdf" width="100%" height="600">
+          <embed src="report_YR-1754994517.pdf" type="application/pdf" />
+        </object>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>STATS — Short Term Asset Tracking System</title>
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b0f14; --muted:#4b5563;
+      --brand:#f59e0b; --card:#f8fafc; --border:#e5e7eb; --link:#0ea5e9;
+    }
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    .wrap{max-width:1200px;margin:0 auto;padding:28px 18px 60px}
+    .hero{padding:24px 18px 8px;border-bottom:4px solid var(--brand);}
+    h1{margin:0;font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:.3px}
+    .lead{color:var(--muted);max-width:860px;line-height:1.6;margin-top:8px}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+    .btn{background:var(--brand);color:#111827;border:none;border-radius:12px;padding:10px 16px;font-weight:800;text-decoration:none;display:inline-block}
+    .btn.ghost{background:transparent;border:2px solid var(--brand);color:var(--text)}
+    .section-title{margin:28px 0 10px;font-weight:900;font-size:22px;color:#111827}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .col-3{grid-column:span 3} .col-4{grid-column:span 4} .col-6{grid-column:span 6} .col-12{grid-column:1/-1}
+    @media(max-width:1000px){.col-3,.col-4,.col-6{grid-column:span 6}}
+    @media(max-width:640px){.col-3,.col-4,.col-6{grid-column:1/-1}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+    .thumb{aspect-ratio:16/9;display:block;width:100%;object-fit:cover;border-bottom:1px solid var(--border)}
+    .card-body{padding:12px 12px 14px}
+    .tag{display:inline-block;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:999px;padding:2px 8px;font-size:12px;margin-right:6px}
+    .links a{color:var(--link);text-decoration:none;margin-right:10px;font-weight:700}
+    .footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>STATS — Short Term Asset Tracking System</h1>
+      <p class="lead">Track, loan, and recover school devices fast. STATS pairs barcode-first workflows with clean reporting, automated emails, and a simple plugin architecture so you can extend features without touching core code.</p>
+      <div class="cta-row">
+        <a class="btn" href="reportsmodule.html">More about reports</a>
+        <a class="btn ghost" href="auto_emails.html">See Auto Emails</a>
+      </div>
+    </header>
+
+    <h2 class="section-title">Core Features</h2>
+    <section class="grid">
+      <article class="card col-4">
+        <img class="thumb" src="loanout.png" alt="Loan screen">
+        <div class="card-body">
+          <div><span class="tag">Barcode</span><span class="tag">Fast</span></div>
+          <h3>Loan Devices</h3>
+          <p>Scan a student ID and a device to assign instantly. Recent activity panel keeps staff in sync.</p>
+          <div class="links"><a href="#">Details</a></div>
+        </div>
+      </article>
+
+      <article class="card col-4">
+        <img class="thumb" src="return.png" alt="Return screen">
+        <div class="card-body">
+          <div><span class="tag">One-Scan</span><span class="tag">Logs</span></div>
+          <h3>Return Devices</h3>
+          <p>One barcode to return. Assignment and history are updated in real time.</p>
+          <div class="links"><a href="#">Details</a></div>
+        </div>
+      </article>
+
+      <article class="card col-4">
+        <img class="thumb" src="userdata.png" alt="Search students">
+        <div class="card-body">
+          <div><span class="tag">Lookup</span><span class="tag">History</span></div>
+          <h3>Search Students</h3>
+          <p>See slips, device history, flags, and notes in a single view.</p>
+          <div class="links"><a href="#">Details</a></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid" style="margin-top:12px">
+      <article class="card col-4">
+        <img class="thumb" src="devices.png" alt="Search devices">
+        <div class="card-body">
+          <div><span class="tag">Inventory</span><span class="tag">Photos</span></div>
+          <h3>Search Devices</h3>
+          <p>Filter by status, view device photos, and edit notes or mark out-of-service.</p>
+          <div class="links"><a href="#">Details</a></div>
+        </div>
+      </article>
+
+      <article class="card col-4">
+        <img class="thumb" src="slips.png" alt="Slips">
+        <div class="card-body">
+          <div><span class="tag">Paperless</span><span class="tag">QZ Tray</span></div>
+          <h3>Borrowing Slips</h3>
+          <p>Generate printable slips with barcodes; validate and store for audit.</p>
+          <div class="links"><a href="#">Details</a></div>
+        </div>
+      </article>
+
+      <article class="card col-4">
+        <img class="thumb" src="reports.png" alt="Reports">
+        <div class="card-body">
+          <div><span class="tag">PDF</span><span class="tag">CSV</span><span class="tag">Email</span></div>
+          <h3>Reports</h3>
+          <p>Year-level summaries with automatic PDF/CSV distribution and internal links.</p>
+          <div class="links">
+            <a href="reportsmodule.html">See More</a>
+            <a href="auto_emails.html">Auto Emails</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <h2 class="section-title">Extensible by Design</h2>
+    <section class="grid">
+      <article class="card col-6">
+        <img class="thumb" src="plugins.png" alt="Plugins page">
+        <div class="card-body">
+          <div><span class="tag">Settings Plugins</span><span class="tag">App Plugins</span></div>
+          <h3>Plugin Loader</h3>
+          <p>Drop PHP plugins into <code>/plugins</code>. Files prefixed with <code>settings_</code> render in Settings; all others appear in Plugins.</p>
+          <div class="links"><a href="#">Read Docs</a></div>
+        </div>
+      </article>
+      <article class="card col-6">
+        <img class="thumb" src="equipmentplugin.png" alt="Plugin manager">
+        <div class="card-body">
+          <div><span class="tag">CSV Import</span><span class="tag">Equipment</span></div>
+          <h3>Ready‑made Plugins</h3>
+          <p>Device CSV Import, Equipment Lending, and STATS dashboards ship as first‑party plugins.</p>
+          <div class="links"><a href="pluginsdownload.html">Browse Plugins</a></div>
+        </div>
+      </article>
+    </section>
+
+    <div class="footer">
+      © 2025 STATS — Built for schools. Need a tailored build? <a href="#" style="color:var(--link);text-decoration:none">Get in touch</a>.
+    </div>
+  </div>
+</body>
+</html>
