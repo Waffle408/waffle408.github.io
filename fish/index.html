@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Phish or Feline? — Phishing Awareness</title>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#ff6b35; --muted:#9aa7bd;
+      --glass: rgba(255,255,255,0.03);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    body{margin:0;background:
+      linear-gradient(180deg,#071126 0%, #07182a 50%),
+      url('https://placekitten.com/1400/900') center/cover no-repeat;
+      color:#e6eef6; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem;}
+    .wrap{width:min(1100px,96%); backdrop-filter: blur(6px); background:linear-gradient(180deg, rgba(3,7,18,0.7), rgba(6,11,20,0.7)); border-radius:12px; padding:24px; box-shadow: 0 10px 30px rgba(2,6,15,0.7); display:grid; grid-template-columns: 1fr 380px; gap:20px;}
+    header{grid-column:1/-1; display:flex; align-items:center; gap:16px;}
+    .logo{width:64px; height:64px; border-radius:8px; background:linear-gradient(135deg,var(--accent),#ffb86b); display:flex; align-items:center; justify-content:center; font-weight:700; color:#111;}
+    h1{margin:0;font-size:1.4rem}
+    p.lead{margin:0;color:var(--muted); font-size:0.95rem}
+    .card{background:var(--card); padding:18px; border-radius:10px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03);}
+    .example{margin-top:12px; display:flex; gap:12px; align-items:flex-start;}
+    .fake-email{flex:1}
+    .fake-email .from{font-weight:600}
+    .fake-email .subject{margin-top:6px; font-size:1rem}
+    .fake-email .body{margin-top:10px; color:var(--muted); font-size:0.92rem; line-height:1.3}
+    .cta{display:inline-block; margin-top:12px; padding:10px 14px; border-radius:8px; background:linear-gradient(180deg,var(--accent),#ff8b5a); color:#111; font-weight:700; cursor:pointer; text-decoration:none;}
+    .right{position:relative;}
+    .cat{width:100%; height:200px; object-fit:cover; border-radius:8px; display:block; border:1px solid rgba(255,255,255,0.04)}
+    .rules{margin-top:12px;}
+    .rule{display:flex; gap:10px; align-items:flex-start; margin:8px 0}
+    .flag{width:12px; height:12px; border-radius:50%;}
+    .flag.bad{background:#ff5c5c}
+    .flag.soso{background:#ffb86b}
+    .flag.good{background:#27d07d}
+    .quiz {margin-top:14px}
+    .link-scan {display:flex; gap:8px; margin-top:8px}
+    input[type=text]{width:100%; padding:10px; border-radius:8px; background:var(--glass); border:1px solid rgba(255,255,255,0.03); color:inherit}
+    button {padding:9px 12px; border-radius:8px; border:0; background:#123; color:#fff; cursor:pointer}
+    .results{margin-top:10px; padding:12px; border-radius:8px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); font-size:0.95rem}
+    footer{grid-column:1/-1; margin-top:10px; color:var(--muted); font-size:0.85rem; display:flex; justify-content:space-between; align-items:center}
+    .hint{color:var(--muted); font-size:0.9rem}
+    .quiz-grid{display:grid; gap:8px}
+    .btn-ghost{background:transparent; border:1px solid rgba(255,255,255,0.04); color:var(--muted); padding:8px 10px}
+    .small{font-size:0.85rem; color:var(--muted)}
+    .danger{color:#ff9b9b; font-weight:700}
+    @media (max-width:900px){.wrap{grid-template-columns:1fr;}.right{order:2}}
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main">
+    <header>
+      <div class="logo">PH</div>
+      <div>
+        <h1>Phish or Feline? — Spot the scam, save a cat</h1>
+        <p class="lead">A tiny, silly demo to teach people how to spot phishing without feeding their paranoia. Includes cat memes as a reward for paying attention.</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Example: a suspicious "urgent" email</h2>
+
+      <div class="example">
+        <div class="fake-email">
+          <div class="from">From: IT Support &lt;it-support@yourbank-login.com&gt;</div>
+          <div class="subject">Subject: URGENT — Verify your account now or lose access</div>
+          <div class="body">
+            Dear user,<br><br>
+            We detected unusual activity. Please <strong>verify your account</strong> immediately to avoid suspension.<br><br>
+            <a class="cta" id="danger-link" href="#">Verify my account</a>
+            <div class="small" style="margin-top:8px">Hover the link (or check the real link) — and don't click it here. This demo will safely analyze it for you.</div>
+          </div>
+        </div>
+
+        <div style="width:220px">
+          <img class="cat" src="https://placekitten.com/400/240" alt="A suspiciously adorable cat">
+          <div class="small" style="margin-top:8px">Reward cat for reading. No cats were phished in the making of this demo.</div>
+        </div>
+      </div>
+
+      <div class="rules">
+        <h3 style="margin:12px 0 6px 0">Top red flags</h3>
+        <div class="rule"><div class="flag bad"></div><div><strong>Sender address looks off</strong> — it might say your bank, but the domain is wrong.</div></div>
+        <div class="rule"><div class="flag bad"></div><div><strong>Pressure tactics</strong> — "urgent", "immediately", "suspend". Scammers pressure you to act without thinking.</div></div>
+        <div class="rule"><div class="flag soso"></div><div><strong>Generic greeting</strong> — "Dear user" instead of your name can be a clue (not always).</div></div>
+        <div class="rule"><div class="flag soso"></div><div><strong>Strange links or attachments</strong> — never open unexpected attachments or click weird links.</div></div>
+        <div class="rule"><div class="flag good"></div><div><strong>Legit logos and design can be faked</strong> — check sender, URL, and contact the organisation directly if unsure.</div></div>
+      </div>
+
+      <div style="margin-top:12px">
+        <label class="small">Paste a link below to safely scan it (client-side only):</label>
+        <div class="link-scan">
+          <input id="linkInput" type="text" placeholder="https://tinyurl.com/definitely-not-a-scam">
+          <button id="scanBtn">Scan</button>
+          <button id="openBtn" class="btn-ghost" onclick="alert('This demo does NOT open links. Copy link and inspect manually.')">How to check</button>
+        </div>
+        <div id="scanResult" class="results" aria-live="polite">No scan yet — try pasting a link like <code>http://login.bank-secure.example.com</code></div>
+      </div>
+    </section>
+
+    <aside class="card right">
+      <h3>Quick quiz</h3>
+      <div class="quiz-grid quiz">
+        <div class="small">Question: You receive this email. What do you do?</div>
+        <button class="btn-ghost" onclick="quizAnswer('call')">Call the organisation using phone from their website</button>
+        <button class="btn-ghost" onclick="quizAnswer('click')">Click the link and enter my password</button>
+        <button class="btn-ghost" onclick="quizAnswer('report')">Report to IT/security and delete</button>
+        <div id="quizResult" class="results" style="display:none"></div>
+
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:10px 0">
+
+        <h4 style="margin:6px 0">Mini game: Guess the red flag</h4>
+        <p class="small">Choose which of these is the worst sign of phishing (pick one):</p>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <button class="btn-ghost" onclick="flash('domain')">A link domain like <code>yourbank-login.com</code></button>
+          <button class="btn-ghost" onclick="flash('pressure')">Threatening language — "verify or lose access"</button>
+          <button class="btn-ghost" onclick="flash('logo')">Bad logo quality</button>
+        </div>
+
+        <div id="miniResult" class="small" style="margin-top:8px;color:var(--muted)">Hint: multiple signs are bad, but one is especially telling.</div>
+      </div>
+
+      <div style="margin-top:12px">
+        <img class="cat" src="https://placekitten.com/401/260" alt="More cats" />
+      </div>
+
+      <div style="margin-top:12px" class="small">
+        <strong>Pro tip:</strong> When in doubt, go directly to the real website (type the URL yourself) or call the number on the official site — don't click.
+      </div>
+    </aside>
+
+    <footer>
+      <div class="hint">This page is for training only — it will not send information anywhere.</div>
+      <div class="small">Drop into a GitHub Pages repo as <code>index.html</code>.</div>
+    </footer>
+  </main>
+
+  <script>
+    // Safe, client-side link "scanner" — purely heuristic and educational
+    const scanBtn = document.getElementById('scanBtn');
+    const linkInput = document.getElementById('linkInput');
+    const scanResult = document.getElementById('scanResult');
+
+    function heuristics(url){
+      const res = {warnings:[], good:[]};
+      if(!url || url.trim()===''){ res.warnings.push('No link provided.'); return res; }
+      try {
+        const parsed = new URL(url.includes('://')? url : 'http://'+url);
+        const host = parsed.host.toLowerCase();
+        // suspicious patterns
+        if(host.split('.').length > 3) res.warnings.push('Many subdomains — could be a deceptive redirect.');
+        if(host.includes('login-') || host.includes('secure-') || host.includes('account-')) res.warnings.push('Host contains suspicious keywords like "login" or "secure" used to trick you.');
+        if(host.includes('tinyurl') || host.includes('bit.ly') || host.includes('t.co')) res.warnings.push('Shortened links hide destination — expand before trusting.');
+        if(host.match(/^[0-9.]+$/)) res.warnings.push('Numeric IP address used — odd for legitimate services.');
+        if(host.endsWith('.ru') || host.endsWith('.xyz')) res.warnings.push('Uncommon TLD for banks — verify domain carefully.');
+        if(host.includes('yourbank') || host.includes('bank')) res.warnings.push('Contains brand keywords — attackers often use brand words in domains.');
+        if(parsed.pathname.length < 2) res.good.push('Path is short — could be legit but still check host.');
+        return res;
+      } catch(e){
+        res.warnings.push('Invalid URL format.');
+        return res;
+      }
+    }
+
+    scanBtn.addEventListener('click', ()=>{
+      const url = linkInput.value.trim();
+      const h = heuristics(url);
+      let html = '';
+      if(h.warnings.length){
+        html += '<div class="danger">Warnings:</div><ul>';
+        for(const w of h.warnings) html += `<li>${w}</li>`;
+        html += '</ul><div class="small">Recommendation: Do not click. Open a new tab and type the organisation\'s URL manually, or call them.</div>`;
+      } else {
+        html += '<div style="color:var(--muted)"><strong>No obvious red flags</strong> — that does not mean it\'s safe. Still verify the sender and the site.</div>';
+        if(h.good.length) html += '<ul>' + h.good.map(x=>`<li>${x}</li>`).join('') + '</ul>';
+      }
+      scanResult.innerHTML = html;
+    });
+
+    // Quiz handling
+    function quizAnswer(choice){
+      const q = document.getElementById('quizResult');
+      q.style.display = 'block';
+      if(choice === 'click'){
+        q.innerHTML = '<div class="danger">Definitely not. Never click and enter credentials. This is exactly what scammers want.</div>';
+      } else if(choice === 'call'){
+        q.innerHTML = '<div style="color:var(--muted)">Good. Calling the organisation using contact details from their official website is safe practice.</div>';
+      } else {
+        q.innerHTML = '<div style="color:var(--muted)">Excellent. Reporting to IT/security and deleting the message is the right move.</div>';
+      }
+    }
+
+    // Mini game/hint
+    function flash(key){
+      const area = document.getElementById('miniResult');
+      if(key === 'domain'){
+        area.innerText = 'Correct-ish — a dodgy domain is one of the most telling signs.';
+        area.style.color = '#ffb86b';
+      } else if(key === 'pressure'){
+        area.innerText = 'Also correct — urgent threats are a common social engineering trick.';
+        area.style.color = '#ffb86b';
+      } else {
+        area.innerText = 'Logo quality alone is not reliable; attackers can replicate branding. Focus on the domain and the ask.';
+        area.style.color = 'var(--muted)';
+      }
+      setTimeout(()=>{ area.style.color = 'var(--muted)'; }, 3500);
+    }
+
+    // Disable the danger link from navigating anywhere; show inspection hint
+    document.getElementById('danger-link').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Don\'t click suspicious links. Hover to preview URL, or paste it into the scanner box above to analyze it safely.');
+    });
+  </script>
+</body>
+</html>
